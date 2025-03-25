@@ -21,9 +21,6 @@
 - **CSS (Animations & Effects)**
 - **JavaScript**
 
-##  Preview
-![Game Board](images/tic-tac-toe.png)
-
 ##  How to Play
 1️⃣ Click on any empty tile to place your mark (X or O).
 2️⃣ Players take turns marking the 3×3 grid.

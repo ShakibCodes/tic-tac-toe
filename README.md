@@ -11,7 +11,7 @@
 ✅ **Custom Cursor** – A unique custom cursor for a playful experience.
 ✅ **Responsive Design** – Works on desktops, tablets, and mobile devices.
 
-![Game Screenshot](./assets/tic-tac-toe.png)
+![Game Screenshot](image/tic-tac-toe.png)
 
 ## 🚀 Live Demo
 🔗 **[Play Now](https://ShakibCodes.github.io/tic-tac-toe/)**

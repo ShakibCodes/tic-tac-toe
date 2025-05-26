@@ -6,8 +6,8 @@
 
 
 :root {
-    --primary: #ffcc00; /* Bright Yellow */
-    --secondary: #1a1a2e; /* Dark Blue-Gray */
+    --primary: #ffcc00; 
+    --secondary: #1a1a2e; 
     --winning-blocks: rgba(255, 204, 0, 0.7);
 }
 

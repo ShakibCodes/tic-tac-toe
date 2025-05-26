@@ -6,9 +6,9 @@
 
 ##  Features
 ✅ **Sleek UI** – Modern, minimalistic, and easy on the eyes.<br>
-✅ **Hover Effects** – Smooth scaling effect when hovering over boxes.
-✅ **Winning Animation** – The winning blocks light up with a pulsing glow.
-✅ **Custom Cursor** – A unique custom cursor for a playful experience.
+✅ **Hover Effects** – Smooth scaling effect when hovering over boxes.<br>
+✅ **Winning Animation** – The winning blocks light up with a pulsing glow.<br>
+✅ **Custom Cursor** – A unique custom cursor for a playful experience.<br>
 ✅ **Responsive Design** – Works on desktops, tablets, and mobile devices.
 
 ![Game Screenshot](image/tic-tac-toe.png)

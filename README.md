@@ -5,7 +5,7 @@
 > A simple yet visually appealing Tic-Tac-Toe game with smooth animations and an elegant UI.
 
 ##  Features
-✅ **Sleek UI** – Modern, minimalistic, and easy on the eyes.
+✅ **Sleek UI** – Modern, minimalistic, and easy on the eyes.<br>
 ✅ **Hover Effects** – Smooth scaling effect when hovering over boxes.
 ✅ **Winning Animation** – The winning blocks light up with a pulsing glow.
 ✅ **Custom Cursor** – A unique custom cursor for a playful experience.

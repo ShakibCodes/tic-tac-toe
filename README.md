@@ -35,7 +35,7 @@
 2. Open `index.html` in your browser and enjoy!
 
 ##  Contribution
-Feel free to fork this repository and add your own cool effects! PRs are welcome! 🚀
+Feel free to fork this repository and add your own cool effects! PRs are welcome! 
 
 ##  License
 This project is licensed under the **MIT License**.

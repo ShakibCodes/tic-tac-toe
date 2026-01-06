@@ -1,72 +1,114 @@
-let playerText = document.getElementById('playerText')
-let restartBtn = document.getElementById('restartBtn')
-let boxes = Array.from(document.getElementsByClassName('box'))
+    const statusText = document.getElementById('status');
+    const restartBtn = document.getElementById('restartBtn');
+    const boxes = Array.from(document.getElementsByClassName('box'));
+    const scoreXDisplay = document.getElementById('score-x');
+    const scoreODisplay = document.getElementById('score-o');
+    const cardX = document.getElementById('card-X');
+    const cardO = document.getElementById('card-O');
 
-let winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winning-blocks')
+    const X_TEXT = "X";
+    const O_TEXT = "O";
+    let currentPlayer = X_TEXT;
+    let spaces = Array(9).fill(null);
+    let scoreX = 0;
+    let scoreO = 0;
+    let gameActive = true;
 
-const O_TEXT = "O"
-const X_TEXT = "X"
-let currentPlayer = X_TEXT
-let spaces = Array(9).fill(null)
+    const winningCombos = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+    ];
 
-const startGame = () => {
-    boxes.forEach(box => box.addEventListener('click', boxClicked))
-}
-
-function boxClicked(e) {
-    const id = e.target.id
-
-    if(!spaces[id]){
-        spaces[id] = currentPlayer
-        e.target.innerText = currentPlayer
-
-        if(playerHasWon() !==false){
-            playerText.innerHTML = `${currentPlayer} has won!`
-            let winning_blocks = playerHasWon()
-
-            winning_blocks.map( box => boxes[box].style.backgroundColor=winnerIndicator)
-            return
-        }
-
-        currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT
+    function initGame() {
+        boxes.forEach(box => box.addEventListener('click', handleBoxClick));
+        restartBtn.addEventListener('click', restartGame);
+        updateTurnUI();
     }
-}
 
-const winningCombos = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
-]
+    function handleBoxClick(e) {
+        const id = e.target.id;
 
-function playerHasWon() {
-    for (const condition of winningCombos) {
-        let [a, b, c] = condition
+        if (!spaces[id] && gameActive) {
+            spaces[id] = currentPlayer;
+            e.target.innerText = currentPlayer;
+            e.target.classList.add(currentPlayer === X_TEXT ? 'x-move' : 'o-move');
 
-        if(spaces[a] && (spaces[a] == spaces[b] && spaces[a] == spaces[c])) {
-            return [a,b,c]
+            if (checkWin()) {
+                handleWin();
+                return;
+            }
+
+            if (checkDraw()) {
+                handleDraw();
+                return;
+            }
+
+            currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
+            updateTurnUI();
         }
     }
-    return false
-}
 
-restartBtn.addEventListener('click', restart)
+    function updateTurnUI() {
+        statusText.innerText = `${currentPlayer}'s Turn`;
+        if (currentPlayer === X_TEXT) {
+            cardX.classList.add('active-x');
+            cardO.classList.remove('active-o');
+        } else {
+            cardO.classList.add('active-o');
+            cardX.classList.remove('active-x');
+        }
+    }
 
-function restart() {
-    spaces.fill(null)
+    function checkWin() {
+        for (const combo of winningCombos) {
+            let [a, b, c] = combo;
+            if (spaces[a] && (spaces[a] === spaces[b] && spaces[a] === spaces[c])) {
+                highlightWinner([a, b, c]);
+                return true;
+            }
+        }
+        return false;
+    }
 
-    boxes.forEach( box => {
-        box.innerText = ''
-        box.style.backgroundColor=''
-    })
+    function highlightWinner(indices) {
+        indices.forEach(i => boxes[i].classList.add('win'));
+    }
 
-    playerText.innerHTML = 'Tic Tac Toe'
+    function checkDraw() {
+        return spaces.every(space => space !== null);
+    }
 
-    currentPlayer = X_TEXT
-}
+    function handleWin() {
+        gameActive = false;
+        statusText.innerText = `${currentPlayer} Victorious!`;
+        if (currentPlayer === X_TEXT) {
+            scoreX++;
+            scoreXDisplay.innerText = scoreX;
+        } else {
+            scoreO++;
+            scoreODisplay.innerText = scoreO;
+        }
+    }
 
-startGame()
+    function handleDraw() {
+        gameActive = false;
+        statusText.innerText = "Draw!";
+        cardX.classList.remove('active-x');
+        cardO.classList.remove('active-o');
+    }
+
+    function restartGame() {
+        spaces.fill(null);
+        gameActive = true;
+        currentPlayer = X_TEXT;
+        
+        boxes.forEach(box => {
+            box.innerText = '';
+            box.classList.remove('x-move', 'o-move', 'win');
+        });
+
+        updateTurnUI();
+    }
+
+    initGame();

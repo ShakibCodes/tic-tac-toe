@@ -1,123 +1,173 @@
+:root {
+    --bg: #050505;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-x: #00f2ff;
+    --neon-o: #ff007a;
+    --text: #ffffff;
+    --font-main: 'Poppins', sans-serif;
+    --font-heading: 'Orbitron', sans-serif;
+}
+
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-
-:root {
-    --primary: #ffcc00; /* Bright Yellow */
-    --secondary: #1a1a2e; /* Dark Blue-Gray */
-    --winning-blocks: rgba(255, 204, 0, 0.7);
-}
-
 body {
-    background: linear-gradient(135deg, #141e30, #243b55);
-    color: var(--primary);
-    font-family: 'Finger Paint', cursive;
-    text-align: center;
-    animation: backgroundMove 10s infinite alternate;
-}
-@keyframes backgroundMove {
-    0% { background-position: left; }
-    100% { background-position: right; }
-}
-h1 {
-    font-size: 50px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 10px var(--primary);
-}
-
-
-.container {
-    padding: 40px;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    overflow: hidden;
 }
-#gameboard {
-    width: 320px;
+
+.background-blobs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    filter: blur(80px);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: move 20s infinite alternate;
+}
+
+.blob-1 {
+    background: var(--neon-x);
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    background: var(--neon-o);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes move {
+    from { transform: translate(0, 0); }
+    to { transform: translate(100px, 100px); }
+}
+
+.container {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, var(--neon-x), var(--neon-o));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.scoreboard {
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.score-card {
+    flex: 1;
+    margin: 0 5px;
     padding: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.4);
-    animation: fadeIn 1s ease-in-out;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    transition: 0.3s;
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+
+.score-card.active-x { border-color: var(--neon-x); box-shadow: 0 0 10px var(--neon-x); }
+.score-card.active-o { border-color: var(--neon-o); box-shadow: 0 0 10px var(--neon-o); }
+
+.label { display: block; font-size: 0.7rem; opacity: 0.7; }
+.score { font-family: var(--font-heading); font-size: 1.5rem; }
+
+#status {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
+
+#gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
 .box {
-    height: 100px;
-    width: 100px;
+    aspect-ratio: 1/1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 60px;
-    font-weight: bold;
-    color: var(--primary);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease-in-out;
+    font-size: 2.5rem;
+    font-family: var(--font-heading);
     cursor: pointer;
-    position: relative;
-}
-.box:hover {
-    background: rgba(255, 204, 0, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0px 0px 12px var(--primary);
-}
-.winning {
-    background: var(--winning-blocks);
-    animation: pulse 1s infinite alternate;
-}
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px var(--primary); }
-    100% { box-shadow: 0 0 20px var(--primary); }
-}
-.box:active {
-    transform: scale(0.95);
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.box:nth-child(3n) {
-    border-right: none;
+.box:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-5px);
 }
-.box:nth-child(6) ~ .box {
-    border-bottom: none;
+
+.box.x-move { color: var(--neon-x); text-shadow: 0 0 15px var(--neon-x); }
+.box.o-move { color: var(--neon-o); text-shadow: 0 0 15px var(--neon-o); }
+
+.box.win {
+    background: white !important;
+    color: black !important;
+    text-shadow: none !important;
+    transform: scale(1.05);
 }
 
 button {
-    padding: 12px 24px;
-    border-radius: 8px;
-    background-color: var(--primary);
-    color: #333;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
-    transition: all 0.3s ease-in-out;
-    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-family: var(--font-heading);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 2px;
 }
 
 button:hover {
-    cursor: pointer;
-    transform: translateY(-3px);
-    background: #ffdb4d;
-    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.6);
-}
-body {
-    cursor: url('https://cur.cursors-4u.net/cursors/cur-2/cur221.cur'), auto;
+    background: white;
+    color: black;
 }
 
-.men {
-    margin-top: 40px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
+.author {
+    margin-top: 20px;
+    font-size: 0.7rem;
+    opacity: 0.5;
 }

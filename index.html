@@ -2,20 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe // Cyber Edition</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1 id="playerText">Tic Tac Toe</h1>
-        <button id="restartBtn">Restart</button>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
-        <div id="gameboard">
+    <div class="container">
+        <header>
+            <h1 id="title">TIC TAC TOE</h1>
+            <div class="scoreboard">
+                <div class="score-card" id="card-X">
+                    <span class="label">PLAYER X</span>
+                    <span class="score" id="score-x">0</span>
+                </div>
+                <div class="score-card" id="card-O">
+                    <span class="label">PLAYER O</span>
+                    <span class="score" id="score-o">0</span>
+                </div>
+            </div>
+            <h2 id="status">X's Turn</h2>
+        </header>
+
+        <main id="gameboard">
             <div class="box" id="0"></div>
             <div class="box" id="1"></div>
             <div class="box" id="2"></div>
@@ -25,11 +39,17 @@
             <div class="box" id="6"></div>
             <div class="box" id="7"></div>
             <div class="box" id="8"></div>
-            <footer class="men"> By Shakib Codes </footer>
+        </main>
+
+        <div class="controls">
+            <button id="restartBtn">RESTART MATCH</button>
         </div>
+
+        <footer>
+            <p class="author">By Shakib Codes</p>
+        </footer>
     </div>
     
     <script src="game_logic.js"></script>
-
 </body>
 </html>
